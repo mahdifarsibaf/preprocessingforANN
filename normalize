@@ -1,0 +1,33 @@
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+
+waam = pd.read_excel('waam.xlsx')
+poldaghi = pd.read_excel('poldaghi.xlsx')
+
+# Sample data
+df1 = pd.DataFrame(waam)
+df2 = pd.DataFrame(poldaghi)
+
+# Min-Max Scaling (0, 1)
+scaler = MinMaxScaler()
+waam_min_max = scaler.fit_transform(df1)
+poldaghi_min_max = scaler.fit_transform(df2)
+
+# Min-Max Scaling (-1, 1)
+waam_min_max_limited = 2 * waam_min_max - 1
+poldaghi_min_max_limited = 2 * poldaghi_min_max - 1
+
+# Standardization
+scaler = StandardScaler()
+waam_standardized = pd.DataFrame(scaler.fit_transform(df1), columns=df1.columns)
+poldaghi_standardized = pd.DataFrame(scaler.fit_transform(df2), columns=df2.columns)
+
+print("Min-Max Scaled Data For waam:\n", waam_min_max)
+print("Min-Max Scaled Data For poldaghi:\n", poldaghi_min_max)
+
+print("\nMin-Max Scaled Data For waam (-1, 1):\n", waam_min_max_limited)
+print("\nMin-Max Scaled Data For poldaghi(-1, 1):\n", poldaghi_min_max_limited)
+
+print("\nStandardized DataFor waam :\n", waam_standardized)
+print("\nStandardized Data For poldaghi:\n", poldaghi_standardized)
